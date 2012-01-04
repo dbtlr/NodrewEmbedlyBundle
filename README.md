@@ -1,6 +1,10 @@
 Embedly Bundle for Symfony2
 ================================
 
+For use with the Embedly service at: http://www.embedly.com
+
+__Under Development__
+
 Installation Instructions
 =========================
 
