@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="no_drew_embedly.key"></parameter>
+        <parameter key="no_drew_embedly.options"></parameter>
+        <parameter key="no_drew_embedly.oembed.client.class">NoDrew\Bundle\EmbedlyBundle\Service\OEmbedClient</parameter>
+    </parameters>
+
+    <services>
+        <service id="no_drew_embedly.oembed.client" class="%no_drew_embedly.oembed.client.class%">
+            <argument>%no_drew_embedly.key%</argument>
+             <argument>%no_drew_embedly.options%</argument>
+        </service>
+    </services>
+</container>

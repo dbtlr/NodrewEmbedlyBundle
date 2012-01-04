@@ -20,6 +20,7 @@ class OEmbedClient
      */
     public function __construct($apiKey, $defaultOptions = array())
     {
+        pre_r($apiKey); exit;
         $this->queryArguments = new QueryArguments($defaultOptions);
         $this->queryArguments->setKey($key);
     }

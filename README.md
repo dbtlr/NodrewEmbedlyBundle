@@ -37,8 +37,15 @@ public function registerBundles()
     $bundles = array(
         // System Bundles
         ...
-        new NoDrew\Bundle\EmbedlyBundle\EmbedlyBundle(),
+        new NoDrew\Bundle\EmbedlyBundle\NoDrewEmbedlyBundle(),
         ...
     );
 }
+```
+
+*app/config/config.yml*
+
+```
+no_drew_embedly:
+    key:   [your api key]
 ```
