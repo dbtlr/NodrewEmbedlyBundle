@@ -10,5 +10,11 @@ namespace NoDrew\Bundle\EmbedlyBundle\Model\Response;
  */
 class VideoResponse implements ResponseInterface
 {
-    
+    /**
+     * {@inheritDoc}
+     */
+    public function map($stdResponse)
+    {
+        
+    }
 }

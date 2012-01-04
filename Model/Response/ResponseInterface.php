@@ -10,5 +10,10 @@ namespace NoDrew\Bundle\EmbedlyBundle\Model\Response;
  */
 interface ResponseInterface
 {
-    
+    /**
+     * Map the standard response object from embedly into the proper local structure.
+     *
+     * @param stdClass $stdResponse
+     */
+    public function map($stdResponse);
 }

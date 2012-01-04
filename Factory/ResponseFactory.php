@@ -29,7 +29,8 @@ class ResponseFactory
 
         $class   = 'NoDrew\\Bundle\\EmbedlyBundle\\Model\\Response\\'.ucfirst($stdResponse->type).'Response';
         $response = new $class;
-
+        $response->map($stdResponse);
+        
         return $response;
     }
 }

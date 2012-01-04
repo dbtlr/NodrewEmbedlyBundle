@@ -10,5 +10,11 @@ namespace NoDrew\Bundle\EmbedlyBundle\Model\Response;
  */
 class LinkResponse implements ResponseInterface
 {
-    
+    /**
+     * {@inheritDoc}
+     */
+    public function map($stdResponse)
+    {
+        
+    }
 }
