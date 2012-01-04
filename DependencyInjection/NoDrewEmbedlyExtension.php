@@ -28,6 +28,23 @@ class NoDrewEmbedlyExtension extends Extension
 
         $config = $processor->process($configuration->getConfigTree(), $configs);
         $loader->load('services.xml');
+
+        $this->setConfig($config, $container);
+    }
+    
+    /**
+     * Set the config options.
+     *
+     * @param array $config
+     * @param Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    protected function setConfig($config, $container)
+    {
+        $container->setParameter('no_drew_embedly.key', $config['key']);
+        
+        if (isset($config['options'])) {
+            $container->setParameter('no_drew_embedly.options', $config['options']);
+        }
     }
 
     /**
