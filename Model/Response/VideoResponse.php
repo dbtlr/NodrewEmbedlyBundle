@@ -8,35 +8,56 @@ namespace Nodrew\Bundle\EmbedlyBundle\Model\Response;
  * @copyright	(c) 2012 Drew Butler
  * @license		http://www.opensource.org/licenses/mit-license.php
  */
-class VideoResponse extends MappedResponseAbstract
+class VideoResponse extends GenericResponseAbstract
 {
     /**@#+
      * The internal object properties.
      */
-    protected $url;
-    protected $title;
-    protected $description;
-    protected $providerName;
-    protected $providerUrl;
-    protected $thumbnailWidth;
-    protected $thumbnailHeight;
-    protected $thumbnailUrl;
+    protected $html;
+    protected $height;
+    protected $width;
     /**@#-*/
+
+
+    /**
+     * Get the height property.
+     *
+     * @return string
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
+     * Get the width property.
+     *
+     * @return string
+     */
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    /**
+     * Get the html property.
+     *
+     * @return string
+     */
+    public function getHtml()
+    {
+        return $this->html;
+    }
     
     /**
      * {@inheritDoc}
      */
     protected function getFieldMappings()
     {
-        return array(
-            'url'               => 'url', 
-            'title'             => 'title', 
-            'description'       => 'description', 
-            'provider_name'     => 'providerName', 
-            'provider_url'      => 'providerUrl', 
-            'thumbnail_width'   => 'thumbnailWidth', 
-            'thumbnail_height'  => 'thumbnailHeight', 
-            'thumbnail_url'     => 'thumbnailUrl'
+        return parent::getFieldMappings() + array(
+            'html'   => 'html',
+            'height' => 'height',
+            'width'  => 'width',
         );
     }
 }

@@ -8,14 +8,14 @@ namespace Nodrew\Bundle\EmbedlyBundle\Model\Response;
  * @copyright	(c) 2012 Drew Butler
  * @license		http://www.opensource.org/licenses/mit-license.php
  */
-class PhotoResponse extends GenericResponseAbstract
+class ErrorResponse extends MappedResponseAbstract
 {
     /**@#+
      * The internal object properties.
      */
     protected $url;
-    protected $height;
-    protected $width;
+    protected $errorMessage;
+    protected $errorCode;
     /**@#-*/
 
 
@@ -30,23 +30,23 @@ class PhotoResponse extends GenericResponseAbstract
     }
 
     /**
-     * Get the height property.
+     * Get the errorMessage property.
      *
      * @return string
      */
-    public function getHeight()
+    public function getErrorMessage()
     {
-        return $this->height;
+        return $this->errorMessage;
     }
 
     /**
-     * Get the width property.
+     * Get the errorCode property.
      *
      * @return string
      */
-    public function getWidth()
+    public function getErrorCode()
     {
-        return $this->width;
+        return $this->errorCode;
     }
 
     /**
@@ -54,10 +54,10 @@ class PhotoResponse extends GenericResponseAbstract
      */
     protected function getFieldMappings()
     {
-        return parent::getFieldMappings() + array(
-            'url'    => 'height',
-            'height' => 'height',
-            'width'  => 'width',
+        return array(
+            'url'           => 'url',
+            'error_message' => 'errorMessage',
+            'error_code'    => 'errorCode',
         );
     }
 }

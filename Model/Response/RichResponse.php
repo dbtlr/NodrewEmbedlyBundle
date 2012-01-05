@@ -8,26 +8,16 @@ namespace Nodrew\Bundle\EmbedlyBundle\Model\Response;
  * @copyright	(c) 2012 Drew Butler
  * @license		http://www.opensource.org/licenses/mit-license.php
  */
-class PhotoResponse extends GenericResponseAbstract
+class RichResponse extends GenericResponseAbstract
 {
     /**@#+
      * The internal object properties.
      */
-    protected $url;
+    protected $html;
     protected $height;
     protected $width;
     /**@#-*/
 
-
-    /**
-     * Get the url property.
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
 
     /**
      * Get the height property.
@@ -50,12 +40,22 @@ class PhotoResponse extends GenericResponseAbstract
     }
 
     /**
+     * Get the html property.
+     *
+     * @return string
+     */
+    public function getHtml()
+    {
+        return $this->html;
+    }
+    
+    /**
      * {@inheritDoc}
      */
     protected function getFieldMappings()
     {
         return parent::getFieldMappings() + array(
-            'url'    => 'height',
+            'html'   => 'html',
             'height' => 'height',
             'width'  => 'width',
         );
