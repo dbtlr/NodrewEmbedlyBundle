@@ -3,6 +3,11 @@ Embedly Bundle for Symfony2
 
 For use with the Embedly service at: http://www.embedly.com
 
+APIs Supported:
+- [oEmbed](http://embed.ly/docs/endpoints/1/oembed): Complete
+- [Preview](http://embed.ly/docs/endpoints/1/preview): In Development
+- [Objectify](http://embed.ly/docs/endpoints/2/objectify): In Development
+
 __Under Development__
 
 Installation Instructions
@@ -50,7 +55,7 @@ nodrew_embedly:
     key:   [your api key]
 ```
 
-Using Embedly
+Using Embedly's oEmbed Service
 =============
 
 To use Embedly to get the information about a single url, pass fetch() a url like:

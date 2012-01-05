@@ -23,11 +23,12 @@ class ResponseFactory
      */
     public function buildResponse($embedlyResponse)
     {
-        if (!in_array($embedlyResponse['type'], $this->validTypes)) {
-            throw new ServiceException('An invalid type of: '.$embedlyResponse['type'].' was returned by Embedly. I don\'t know what that is.');
+        $type = $embedlyResponse['type'];
+        if (!in_array($type, $this->validTypes)) {
+            $type = 'generic';
         }
 
-        $class   = 'Nodrew\\Bundle\\EmbedlyBundle\\Model\\Response\\'.ucfirst($embedlyResponse['type']).'Response';
+        $class   = 'Nodrew\\Bundle\\EmbedlyBundle\\Model\\Response\\'.ucfirst($type).'Response';
         $response = new $class;
         $response->map($embedlyResponse);
 

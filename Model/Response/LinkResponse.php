@@ -8,7 +8,7 @@ namespace Nodrew\Bundle\EmbedlyBundle\Model\Response;
  * @copyright	(c) 2012 Drew Butler
  * @license     http://www.opensource.org/licenses/mit-license.php
  */
-class LinkResponse extends GenericResponseAbstract
+class LinkResponse extends GenericResponse
 {
     /**@#+
      * The internal object properties.

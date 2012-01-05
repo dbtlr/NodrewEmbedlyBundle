@@ -8,11 +8,12 @@ namespace Nodrew\Bundle\EmbedlyBundle\Model\Response;
  * @copyright	(c) 2012 Drew Butler
  * @license     http://www.opensource.org/licenses/mit-license.php
  */
-abstract class GenericResponseAbstract extends MappedResponseAbstract
+class GenericResponse extends MappedResponseAbstract
 {
     /**@#+
      * The internal object properties.
      */
+    protected $type;
     protected $title;
     protected $description;
     protected $providerName;
@@ -26,6 +27,16 @@ abstract class GenericResponseAbstract extends MappedResponseAbstract
     /**@#-*/
 
 
+    /**
+     * Get the type property.
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+    
     /**
      * Get the title property.
      *
@@ -132,7 +143,7 @@ abstract class GenericResponseAbstract extends MappedResponseAbstract
     protected function getFieldMappings()
     {
         return array(
-            'url'               => 'url',
+            'type'              => 'type',
             'title'             => 'title',
             'description'       => 'description',
             'provider_name'     => 'providerName',
