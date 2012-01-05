@@ -14,7 +14,7 @@ Add these blocks to the following files
 
 ```
 [NodrewEmbedlyBundle]
-    git=http://github.com/nodrew/EmbedlyBundle.git
+    git=http://github.com/nodrew/NodrewEmbedlyBundle.git
     target=/bundles/Nodrew/Bundle/EmbedlyBundle
 ```
 
