@@ -10,6 +10,7 @@ namespace Nodrew\Bundle\EmbedlyBundle\Model\Response;
  */
 abstract class MappedResponseAbstract implements ResponseInterface
 {
+    protected $unknownProperties = array();
 
     /**
      * Map the standard response from embedly into the proper local structure.
@@ -23,11 +24,26 @@ abstract class MappedResponseAbstract implements ResponseInterface
             throw new \LogicException('The method '.get_class($this).'::getFieldMappings() was supposed to return an array. See the documentation for an example of the proper response.');
         }
         
-        foreach ($mappings as $from => $to) {
-            if (isset($embedlyResponse[$from])) {
-                $this->$to = $embedlyResponse[$from];
+        foreach ($embedlyResponse as $key => $value) {
+            if (!isset($mappings[$key])) {
+                $this->unknownProperties[$key] = $value;
+                continue;
             }
+
+            $this->{$mappings[$key]} = $value;
         }
+    }
+    
+    /**
+     * Get an array of the unknown properties that were returned from embedly.
+     *
+     * - This is largely for debugging purposes. If something is in here, please create an issue to have it formally added into the Bundle.
+     *
+     * @return array
+     */
+    public function getUnknownProperties()
+    {
+        return $this->unknownProperties;
     }
     
     /**
