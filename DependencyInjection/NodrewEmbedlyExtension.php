@@ -9,10 +9,10 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Definition\Processor;
 
 /**
- * @package		Embedly
- * @author		Drew Butler <drew@abstracting.me>
+ * @package     NodrewEmbedlyBundle
+ * @author      Drew Butler <drew@abstracting.me>
  * @copyright	(c) 2012 Drew Butler
- * @license		http://www.opensource.org/licenses/mit-license.php
+ * @license     http://www.opensource.org/licenses/mit-license.php
  */
 class NodrewEmbedlyExtension extends Extension
 {
