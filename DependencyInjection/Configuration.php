@@ -31,7 +31,6 @@ class Configuration
                         ->scalarNode('width')->end()
                         ->scalarNode('maxwidth')->end()
                         ->scalarNode('maxheight')->end()
-                        ->scalarNode('format')->end()
                         ->scalarNode('wmode')->end()
                         ->scalarNode('nostyle')->end()
                         ->scalarNode('autoplay')->end()
