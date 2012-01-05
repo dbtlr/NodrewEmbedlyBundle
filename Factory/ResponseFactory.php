@@ -13,7 +13,7 @@ use Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface,
  */
 class ResponseFactory
 {
-    protected $validTypes = array('link', 'photo', 'video');
+    protected $validTypes = array('link', 'photo', 'video', 'rich', 'error');
 
     /**
      * Build the appropriate response object, based on the requirement.
@@ -24,7 +24,7 @@ class ResponseFactory
     public function buildResponse($embedlyResponse)
     {
         if (!in_array($embedlyResponse['type'], $this->validTypes)) {
-            throw new ServiceException('An invalid type of: '.$stdResponse->type.' was returned by Embedly. I don\'t know what that is.');
+            throw new ServiceException('An invalid type of: '.$embedlyResponse['type'].' was returned by Embedly. I don\'t know what that is.');
         }
 
         $class   = 'Nodrew\\Bundle\\EmbedlyBundle\\Model\\Response\\'.ucfirst($embedlyResponse['type']).'Response';
