@@ -1,6 +1,6 @@
 <?php
 
-namespace NoDrew\Bundle\EmbedlyBundle\Model\Response;
+namespace Nodrew\Bundle\EmbedlyBundle\Model\Response;
 
 /**
  * @package		Embedly

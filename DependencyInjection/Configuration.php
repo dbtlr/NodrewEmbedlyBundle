@@ -1,6 +1,6 @@
 <?php
 
-namespace NoDrew\Bundle\EmbedlyBundle\DependencyInjection;
+namespace Nodrew\Bundle\EmbedlyBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
@@ -20,7 +20,7 @@ class Configuration
     public function getConfigTree()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('no_drew_embedly', 'array');
+        $rootNode = $treeBuilder->root('nodrew_embedly', 'array');
 
         $rootNode
             ->children()

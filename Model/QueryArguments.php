@@ -1,7 +1,7 @@
 <?php
-namespace NoDrew\Bundle\EmbedlyBundle\Model;
+namespace Nodrew\Bundle\EmbedlyBundle\Model;
 
-use NoDrew\Bundle\EmbedlyBundle\Exception\ParameterMatchException;
+use Nodrew\Bundle\EmbedlyBundle\Exception\ParameterMatchException;
 
 /**
  * @package		Embedly

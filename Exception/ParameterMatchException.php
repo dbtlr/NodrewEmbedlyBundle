@@ -1,6 +1,6 @@
 <?php
 
-namespace NoDrew\Bundle\EmbedlyBundle\Exception;
+namespace Nodrew\Bundle\EmbedlyBundle\Exception;
 
 /**
  * @package		Embedly

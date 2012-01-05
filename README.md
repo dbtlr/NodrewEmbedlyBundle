@@ -13,9 +13,9 @@ Add these blocks to the following files
 *deps*
 
 ```
-[PhpAirbrakeBundle]
+[NodrewEmbedlyBundle]
     git=http://github.com/nodrew/EmbedlyBundle.git
-    target=/bundles/NoDrew/Bundle/EmbedlyBundle
+    target=/bundles/Nodrew/Bundle/EmbedlyBundle
 ```
 
 *app/autoload.php*
@@ -24,7 +24,7 @@ Add these blocks to the following files
 $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
     ...
-    'NoDrew'   => __DIR__.'/../vendor/bundles',
+    'Nodrew'   => __DIR__.'/../vendor/bundles',
     ...
 ));
 ```
@@ -37,7 +37,7 @@ public function registerBundles()
     $bundles = array(
         // System Bundles
         ...
-        new NoDrew\Bundle\EmbedlyBundle\NDEmbedlyBundle(),
+        new Nodrew\Bundle\EmbedlyBundle\NodrewEmbedlyBundle(),
         ...
     );
 }
@@ -46,6 +46,6 @@ public function registerBundles()
 *app/config/config.yml*
 
 ```
-nd_embedly:
+nodrew_embedly:
     key:   [your api key]
 ```

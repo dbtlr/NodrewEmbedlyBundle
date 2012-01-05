@@ -1,6 +1,6 @@
 <?php
 
-namespace NoDrew\Bundle\EmbedlyBundle\DependencyInjection;
+namespace Nodrew\Bundle\EmbedlyBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -14,7 +14,7 @@ use Symfony\Component\Config\Definition\Processor;
  * @copyright	(c) 2012 Drew Butler
  * @license		http://www.opensource.org/licenses/mit-license.php
  */
-class NDEmbedlyExtension extends Extension
+class NodrewEmbedlyExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -40,10 +40,10 @@ class NDEmbedlyExtension extends Extension
      */
     protected function setConfig($config, $container)
     {
-        $container->setParameter('no_drew_embedly.key', $config['key']);
+        $container->setParameter('nodrew_embedly.key', $config['key']);
         
         if (isset($config['options'])) {
-            $container->setParameter('no_drew_embedly.options', $config['options']);
+            $container->setParameter('nodrew_embedly.options', $config['options']);
         }
     }
 

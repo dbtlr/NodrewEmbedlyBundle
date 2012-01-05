@@ -1,5 +1,5 @@
 <?php
-namespace NoDrew\Bundle\EmbedlyBundle;
+namespace Nodrew\Bundle\EmbedlyBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  * @copyright	(c) 2012 Drew Butler
  * @license		http://www.opensource.org/licenses/mit-license.php
  */
-class NDEmbedlyBundle extends Bundle 
+class NodrewEmbedlyBundle extends Bundle 
 {
     
 }

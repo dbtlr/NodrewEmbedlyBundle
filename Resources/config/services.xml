@@ -5,15 +5,15 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="no_drew_embedly.key"></parameter>
-        <parameter key="no_drew_embedly.options"></parameter>
-        <parameter key="no_drew_embedly.oembed.client.class">NoDrew\Bundle\EmbedlyBundle\Service\OEmbedClient</parameter>
+        <parameter key="nodrew_embedly.key"></parameter>
+        <parameter key="nodrew_embedly.options"></parameter>
+        <parameter key="nodrew_embedly.oembed.client.class">Nodrew\Bundle\EmbedlyBundle\Service\OEmbedClient</parameter>
     </parameters>
 
     <services>
-        <service id="no_drew_embedly.oembed.client" class="%no_drew_embedly.oembed.client.class%">
-            <argument>%no_drew_embedly.key%</argument>
-             <argument>%no_drew_embedly.options%</argument>
+        <service id="nodrew_embedly.oembed.client" class="%nodrew_embedly.oembed.client.class%">
+            <argument>%nodrew_embedly.key%</argument>
+             <argument>%nodrew_embedly.options%</argument>
         </service>
     </services>
 </container>

@@ -1,9 +1,9 @@
 <?php
 
-namespace NoDrew\Bundle\EmbedlyBundle\Service;
+namespace Nodrew\Bundle\EmbedlyBundle\Service;
 
-use NoDrew\Bundle\EmbedlyBundle\Model\QueryArguments,
-    NoDrew\Bundle\EmbedlyBundle\Factory\ResponseFactory;
+use Nodrew\Bundle\EmbedlyBundle\Model\QueryArguments,
+    Nodrew\Bundle\EmbedlyBundle\Factory\ResponseFactory;
 
 /**
  * @package		Embedly
@@ -48,7 +48,7 @@ class OEmbedClient
     }
 
 	/**
-	 * @param NoDrew\Bundle\EmbedlyBundle\Model\QueryArguments $queryParams
+	 * @param Nodrew\Bundle\EmbedlyBundle\Model\QueryArguments $queryParams
 	 * @return string
 	 **/
 	protected function request(QueryArguments $queryArgs)
