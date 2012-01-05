@@ -1,4 +1,4 @@
-Embedly Bundle for Symfony2
+Embedly Bundle for Symfony2 [![Travis-CI Build Status](https://secure.travis-ci.org/nodrew/NodrewEmbedlyBundle.png?branch=master)](http://travis-ci.org/#!/nodrew/NodrewEmbedlyBundle)
 ================================
 
 For use with the Embedly service at: http://www.embedly.com
