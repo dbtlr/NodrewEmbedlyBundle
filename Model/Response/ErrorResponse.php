@@ -13,6 +13,7 @@ class ErrorResponse extends MappedResponseAbstract
     /**@#+
      * The internal object properties.
      */
+    protected $type;
     protected $code;
     protected $message;
     /**@#-*/
@@ -52,6 +53,7 @@ class ErrorResponse extends MappedResponseAbstract
     protected function getFieldMappings()
     {
         return array(
+            'type'          => 'type',
             'error_code'    => 'code',
             'error_message' => 'message',
         );
