@@ -13,29 +13,37 @@ class ErrorResponse extends MappedResponseAbstract
     /**@#+
      * The internal object properties.
      */
-    protected $errorCode;
-    protected $errorMessage;
+    protected $code;
+    protected $message;
     /**@#-*/
 
 
     /**
-     * Get the errorCode property.
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function getErrorCode()
+    public function getType()
     {
-        return $this->errorCode;
+        return 'error';
     }
 
     /**
-     * Get the errorMessage property.
+     * Get the code property.
      *
      * @return string
      */
-    public function getErrorMessage()
+    public function code()
     {
-        return $this->errorMessage;
+        return $this->code;
+    }
+
+    /**
+     * Get the message property.
+     *
+     * @return string
+     */
+    public function message()
+    {
+        return $this->message;
     }
 
     /**
@@ -44,8 +52,8 @@ class ErrorResponse extends MappedResponseAbstract
     protected function getFieldMappings()
     {
         return array(
-            'error_code'    => 'errorCode',
-            'error_message' => 'errorMessage',
+            'error_code'    => 'code',
+            'error_message' => 'message',
         );
     }
 }

@@ -10,5 +10,10 @@ namespace Nodrew\Bundle\EmbedlyBundle\Model\Response;
  */
 interface ResponseInterface
 {
-
+    /**
+     * Get the type for this response object.
+     *
+     * @return string
+     */
+    public function getType();
 }
