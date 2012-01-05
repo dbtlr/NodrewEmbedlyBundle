@@ -75,12 +75,16 @@ class OEmbedClient
 	 * Parse the given response JSON.
 	 *
 	 * @param string $textResponse
-	 * @return array
+	 * @return array|null
 	 */
 	protected function parseResponse($textResponse)
 	{
+	    if (!$decoded = json_decode($textResponse, true)) {
+	        return;
+        }
+	    
 	    $factory  = new ResponseFactory;
-	    $response = $factory->buildResponse(json_decode($textResponse));
+	    $response = $factory->buildResponse((array) $decoded);
 
 	    return $response;
 	    

@@ -10,12 +10,13 @@ namespace Nodrew\Bundle\EmbedlyBundle\Model\Response;
  */
 abstract class MappedResponseAbstract implements ResponseInterface
 {
+
     /**
-     * Map the standard response object from embedly into the proper local structure.
+     * Map the standard response from embedly into the proper local structure.
      *
-     * @param stdClass $stdResponse
+     * @param array $embedlyResponse
      */
-    public function map($obj)
+    public function map($embedlyResponse)
     {
         $mappings = $this->getFieldMappings();
         if (!is_array($mappings)) {
@@ -23,8 +24,8 @@ abstract class MappedResponseAbstract implements ResponseInterface
         }
         
         foreach ($mappings as $from => $to) {
-            if (isset($obj->$from)) {
-                $this->$to = $obj->$from;
+            if (isset($embedlyResponse[$from])) {
+                $this->$to = $embedlyResponse[$from];
             }
         }
     }
@@ -43,5 +44,5 @@ abstract class MappedResponseAbstract implements ResponseInterface
      *
      * @return array
      */
-    abstract protected function getFieldMappings();
+    abstract protected function getFieldMappings(); 
 }

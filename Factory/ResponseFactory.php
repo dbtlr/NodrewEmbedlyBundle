@@ -18,18 +18,18 @@ class ResponseFactory
     /**
      * Build the appropriate response object, based on the requirement.
      *
-     * @param stdClass $stdResponse
+     * @param array $embedlyResponse
      * @return Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface
      */
-    public function buildResponse($stdResponse)
+    public function buildResponse($embedlyResponse)
     {
-        if (!in_array($stdResponse->type, $this->validTypes)) {
+        if (!in_array($embedlyResponse['type'], $this->validTypes)) {
             throw new ServiceException('An invalid type of: '.$stdResponse->type.' was returned by Embedly. I don\'t know what that is.');
         }
 
-        $class   = 'Nodrew\\Bundle\\EmbedlyBundle\\Model\\Response\\'.ucfirst($stdResponse->type).'Response';
+        $class   = 'Nodrew\\Bundle\\EmbedlyBundle\\Model\\Response\\'.ucfirst($embedlyResponse['type']).'Response';
         $response = new $class;
-        $response->map($stdResponse);
+        $response->map($embedlyResponse);
 
         return $response;
     }
