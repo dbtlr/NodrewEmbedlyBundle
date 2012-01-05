@@ -66,7 +66,12 @@ class QueryArguments
             $params[$key] = $value;
         }
 
-        return http_build_query($params);
+        $string = http_build_query($params);
+
+        // We want to preserve commas in the URL, as embedly requires them for multiple urls.
+        $string = str_replace('%2C', ',', (string) $string);
+
+        return $string;
     }
 
     /**
@@ -87,7 +92,7 @@ class QueryArguments
     public function setKey($key)
     {
         if (!is_string($key)) {
-            throw new ParameterException('key', 'string');
+            throw new ParameterMatchException('key', 'string');
         }
 
         $this->key = $key;
@@ -111,7 +116,7 @@ class QueryArguments
     public function setUrl($url)
     {
         if (!is_string($url)) {
-            throw new ParameterException('url', 'string');
+            throw new ParameterMatchException('url', 'string');
         }
 
         $this->url = $url;
@@ -135,7 +140,7 @@ class QueryArguments
     public function setUrls($urls)
     {
         if (!is_array($urls)) {
-            throw new ParameterException('urls', 'array');
+            throw new ParameterMatchException('urls', 'array');
         }
 
         $this->urls = implode(',', $urls);
@@ -158,8 +163,8 @@ class QueryArguments
      */
     public function setMaxwidth($maxwidth)
     {
-        if (!is_null($maxwidth) || !is_int($maxwidth)) {
-            throw new ParameterException('maxwidth', 'integer or null');
+        if (!is_null($maxwidth) && !is_integer($maxwidth)) {
+            throw new ParameterMatchException('maxwidth', 'integer or null');
         }
 
         $this->maxwidth = $maxwidth;
@@ -182,8 +187,8 @@ class QueryArguments
      */
     public function setMaxheight($maxheight)
     {
-        if (!is_null($maxheight) || !is_int($maxheight)) {
-            throw new ParameterException('maxheight', 'integer or null');
+        if (!is_null($maxheight) && !is_int($maxheight)) {
+            throw new ParameterMatchException('maxheight', 'integer or null');
         }
 
         $this->maxheight = $maxheight;
@@ -206,8 +211,8 @@ class QueryArguments
      */
     public function setWidth($width)
     {
-        if (!is_null($width) || !is_int($width)) {
-            throw new ParameterException('width', 'integer or null');
+        if (!is_null($width) && !is_int($width)) {
+            throw new ParameterMatchException('width', 'integer or null');
         }
 
         $this->width = $width;
@@ -231,7 +236,7 @@ class QueryArguments
     public function setFormat($format)
     {
         if (!in_array($format, array('json', 'xml'))) {
-            throw new ParameterException('format', 'json or xml');
+            throw new ParameterMatchException('format', 'json or xml');
         }
 
         $this->format = $format;
@@ -255,7 +260,7 @@ class QueryArguments
     public function setWmode($wmode)
     {
         if (!in_array($wmode, array('window', 'opaque', 'transparent'))) {
-            throw new ParameterException('wmode', 'window, opaque or transparent');
+            throw new ParameterMatchException('wmode', 'window, opaque or transparent');
         }
 
         $this->wmode = $wmode;
@@ -279,7 +284,7 @@ class QueryArguments
     public function setNostyle($nostyle)
     {
         if (!is_bool($nostyle)) {
-            throw new ParameterException('nostyle', 'true or false');
+            throw new ParameterMatchException('nostyle', 'true or false');
         }
 
         $this->nostyle = $nostyle;
@@ -303,7 +308,7 @@ class QueryArguments
     public function setAutoplay($autoplay)
     {
         if (!is_bool($autoplay)) {
-            throw new ParameterException('autoplay', 'true or false');
+            throw new ParameterMatchException('autoplay', 'true or false');
         }
 
         $this->autoplay = $autoplay;
@@ -327,7 +332,7 @@ class QueryArguments
     public function setVideosrc($videosrc)
     {
         if (!is_bool($videosrc)) {
-            throw new ParameterException('videosrc', 'true or false');
+            throw new ParameterMatchException('videosrc', 'true or false');
         }
 
         $this->videosrc = $videosrc;
@@ -350,8 +355,8 @@ class QueryArguments
      */
     public function setWords($words)
     {
-        if (!is_null($words) || !is_int($words)) {
-            throw new ParameterException('words', 'int or null');
+        if (!is_null($words) && !is_int($words)) {
+            throw new ParameterMatchException('words', 'int or null');
         }
 
         $this->words = $words;
@@ -374,8 +379,8 @@ class QueryArguments
      */
     public function setChars($chars)
     {
-        if (!is_null($chars) || !is_int($chars)) {
-            throw new ParameterException('chars', 'int or null');
+        if (!is_null($chars) && !is_int($chars)) {
+            throw new ParameterMatchException('chars', 'int or null');
         }
 
         $this->chars = $chars;

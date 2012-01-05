@@ -61,9 +61,6 @@ class OEmbedClient
 	protected function request(QueryArguments $queryArgs)
 	{
 		$curl = curl_init();
-        
-        // We want to preserve commas in the URL, as embedly requires them for multiple urls.
-        $query = str_replace('%2C', ',', (string) $queryArgs);
 
 		curl_setopt($curl, CURLOPT_URL, sprintf(self::CLIENT_URI, $query));
 		curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
