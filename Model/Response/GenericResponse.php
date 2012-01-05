@@ -13,6 +13,7 @@ class GenericResponse extends MappedResponseAbstract
     /**@#+
      * The internal object properties.
      */
+    protected $version;
     protected $type;
     protected $title;
     protected $description;
@@ -26,6 +27,16 @@ class GenericResponse extends MappedResponseAbstract
     protected $cacheAge;
     /**@#-*/
 
+
+    /**
+     * Get the version property.
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
 
     /**
      * Get the type property.
@@ -143,6 +154,7 @@ class GenericResponse extends MappedResponseAbstract
     protected function getFieldMappings()
     {
         return array(
+            'version'           => 'version',
             'type'              => 'type',
             'title'             => 'title',
             'description'       => 'description',
