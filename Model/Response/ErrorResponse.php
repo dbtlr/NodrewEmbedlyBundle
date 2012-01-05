@@ -32,7 +32,7 @@ class ErrorResponse extends MappedResponseAbstract
      *
      * @return string
      */
-    public function code()
+    public function getCode()
     {
         return $this->code;
     }
@@ -42,7 +42,7 @@ class ErrorResponse extends MappedResponseAbstract
      *
      * @return string
      */
-    public function message()
+    public function getMessage()
     {
         return $this->message;
     }
