@@ -3,7 +3,8 @@
 namespace Nodrew\Bundle\EmbedlyBundle\Service;
 
 use Nodrew\Bundle\EmbedlyBundle\Model\QueryArguments,
-    Nodrew\Bundle\EmbedlyBundle\Factory\ResponseFactory;
+    Nodrew\Bundle\EmbedlyBundle\Factory\ResponseFactory,
+    Symfony\Component\HttpFoundation\Response;
 
 /**
  * @package		Embedly
@@ -69,10 +70,31 @@ class OEmbedClient
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
         $return = curl_exec($curl);
+        $code   = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+ 
 		curl_close($curl);
+        
+        if ($code != 200) {
+            $return = $this->buildErrorReturn($code);
+        }
 
 		return $return;
 	}
+	
+	/**
+	 * Given the current response code, create and error response json type.
+	 *
+	 * @param int $code
+	 * @return stringr
+	 */
+	protected function buildErrorReturn($code)
+	{
+	    return json_encode(array(
+	        'type'          => 'error',
+	        'error_code'    => $code,
+	        'error_message' => isset(Response::$statusTexts[$code]) ? Response::$statusTexts[$code] : 'Unknown response code',
+	    ));
+    }
 
 	/**
 	 * Parse the given response JSON.
