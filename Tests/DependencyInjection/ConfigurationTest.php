@@ -7,6 +7,9 @@ use Nodrew\Bundle\EmbedlyBundle\DependencyInjection\Configuration;
 
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @covers Nodrew\Bundle\EmbedlyBundle\DependencyInjection\Configuration::getConfigTree
+     */
     public function testThatCanGetConfigTree()
     {
         $configuration = new Configuration();
