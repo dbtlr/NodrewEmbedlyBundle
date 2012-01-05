@@ -10,7 +10,12 @@ namespace Nodrew\Bundle\EmbedlyBundle\Model\Response;
  */
 abstract class MappedResponseAbstract implements ResponseInterface
 {
-    protected $unknownProperties = array();
+    /**
+     * This is largely for debugging purposes. If something is in here, please create an issue to
+     * have it formally added into the Bundle.
+     */
+    protected $unknownProperties;
+
 
     /**
      * Map the standard response from embedly into the proper local structure.
@@ -23,9 +28,13 @@ abstract class MappedResponseAbstract implements ResponseInterface
         if (!is_array($mappings)) {
             throw new \LogicException('The method '.get_class($this).'::getFieldMappings() was supposed to return an array. See the documentation for an example of the proper response.');
         }
-        
+
         foreach ($embedlyResponse as $key => $value) {
             if (!isset($mappings[$key])) {
+                if (!is_array($this->unknownProperties)) {
+                    $this->unknownProperties = array();
+                }
+
                 $this->unknownProperties[$key] = $value;
                 continue;
             }
@@ -33,7 +42,7 @@ abstract class MappedResponseAbstract implements ResponseInterface
             $this->{$mappings[$key]} = $value;
         }
     }
-    
+
     /**
      * Get an array of the unknown properties that were returned from embedly.
      *
@@ -45,9 +54,9 @@ abstract class MappedResponseAbstract implements ResponseInterface
     {
         return $this->unknownProperties;
     }
-    
+
     /**
-     * Get the field mapping in an array form for how to map to the response 
+     * Get the field mapping in an array form for how to map to the response
      * object from the stdClass object retrieved from Embedly.
      *
      * Return should be an array formatted like:
@@ -60,5 +69,5 @@ abstract class MappedResponseAbstract implements ResponseInterface
      *
      * @return array
      */
-    abstract protected function getFieldMappings(); 
+    abstract protected function getFieldMappings();
 }
