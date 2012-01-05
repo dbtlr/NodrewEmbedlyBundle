@@ -60,8 +60,11 @@ class OEmbedClient
 	protected function request(QueryArguments $queryArgs)
 	{
 		$curl = curl_init();
+        
+        // We want to preserve commas in the URL, as embedly requires them for multiple urls.
+        $query = str_replace('%2C', ',', (string) $queryArgs);
 
-		curl_setopt($curl, CURLOPT_URL, sprintf(self::CLIENT_URI, $queryArgs));
+		curl_setopt($curl, CURLOPT_URL, sprintf(self::CLIENT_URI, $query));
 		curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
@@ -82,11 +85,29 @@ class OEmbedClient
 	    if (!$decoded = json_decode($textResponse, true)) {
 	        return;
         }
-	    
-	    $factory  = new ResponseFactory;
-	    $response = $factory->buildResponse((array) $decoded);
 
-	    return $response;
-	    
+	    $factory  = new ResponseFactory;
+
+	    if (!$this->hasMultipleResponses($decoded)) {
+	        return $factory->buildResponse($decoded);
+        }
+
+        $responses = array();
+        foreach ($decoded as $response) {
+            $responses[] = $factory->buildResponse($response);
+        }
+
+        return $responses;
     }
+    
+    /**
+     * Check to see if the given response has multiple records in it.
+     *
+     * @param array $response
+     * @return bool
+     */
+    protected function hasMultipleResponses($response)
+    {
+        return array_keys($response) === range(0, count($response) - 1);
+    }    
 }
