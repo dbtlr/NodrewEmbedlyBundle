@@ -10,11 +10,21 @@ namespace NoDrew\Bundle\EmbedlyBundle\Model\Response;
  */
 class LinkResponse implements ResponseInterface
 {
+    protected function $url;
+    protected function $title;
+    protected function $description;
+    protected function $providerName;
+    protected function $providerUrl;
+    protected function $thumbnailWidth;
+    protected function $thumbnailHeight;
+    protected function $thumbnailUrl;
+    protected function $providerUrl;
+
     /**
      * {@inheritDoc}
      */
     public function map($stdResponse)
     {
-        
+        pre_r($stdResponse);
     }
 }

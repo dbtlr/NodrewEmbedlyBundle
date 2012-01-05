@@ -14,7 +14,7 @@ use Symfony\Component\Config\Definition\Processor;
  * @copyright	(c) 2012 Drew Butler
  * @license		http://www.opensource.org/licenses/mit-license.php
  */
-class NoDrewEmbedlyExtension extends Extension
+class NDEmbedlyExtension extends Extension
 {
     /**
      * {@inheritDoc}

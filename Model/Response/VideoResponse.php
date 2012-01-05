@@ -15,6 +15,6 @@ class VideoResponse implements ResponseInterface
      */
     public function map($stdResponse)
     {
-        
+
     }
 }

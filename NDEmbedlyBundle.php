@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  * @copyright	(c) 2012 Drew Butler
  * @license		http://www.opensource.org/licenses/mit-license.php
  */
-class NoDrewEmbedlyBundle extends Bundle 
+class NDEmbedlyBundle extends Bundle 
 {
     
 }
