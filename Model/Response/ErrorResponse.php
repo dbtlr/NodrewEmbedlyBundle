@@ -13,21 +13,10 @@ class ErrorResponse extends MappedResponseAbstract
     /**@#+
      * The internal object properties.
      */
-    protected $url;
     protected $errorMessage;
     protected $errorCode;
     /**@#-*/
 
-
-    /**
-     * Get the url property.
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
 
     /**
      * Get the errorMessage property.
@@ -55,7 +44,6 @@ class ErrorResponse extends MappedResponseAbstract
     protected function getFieldMappings()
     {
         return array(
-            'url'           => 'url',
             'error_message' => 'errorMessage',
             'error_code'    => 'errorCode',
         );
