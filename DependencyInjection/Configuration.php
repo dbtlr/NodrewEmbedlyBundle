@@ -25,6 +25,7 @@ class Configuration
         $rootNode
             ->children()
                 ->scalarNode('key')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('timeout')->cannotBeEmpty()->end()
                 ->arrayNode('options')
                     ->children()
                         ->scalarNode('width')->end()

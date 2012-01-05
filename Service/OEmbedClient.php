@@ -15,13 +15,16 @@ class OEmbedClient
 {
     const CLIENT_URI = 'http://api.embed.ly/1/oembed?%s';
     protected $queryArguments;
+    protected $timeout;
 
     /**
      * @param string $key
      * @param array $defaultOptions
      */
-    public function __construct($key, $defaultOptions = array())
+    public function __construct($key, $timeout = 3, $defaultOptions = array())
     {
+        $this->timeout = $timeout;
+
         $this->queryArguments = new QueryArguments((array) $defaultOptions);
         $this->queryArguments->setKey($key);
     }
@@ -30,7 +33,7 @@ class OEmbedClient
      * Fetch from embedly, based on the given url(s). If multiple are given in an array, then an array of responses will be returned.
      * 
      * @param string|array $url
-     * @return array
+     * @return array|null
      */
     public function fetch($url)
     {
@@ -43,7 +46,10 @@ class OEmbedClient
             $queryArgs->setUrl($url);
         }
 
-        $response = $this->request($queryArgs);
+        if (!$response = $this->request($queryArgs)) {
+            return;
+        }
+        
         return $this->parseResponse($response);
     }
 
@@ -56,7 +62,7 @@ class OEmbedClient
 		$curl = curl_init();
 
 		curl_setopt($curl, CURLOPT_URL, sprintf(self::CLIENT_URI, $queryArgs));
-		curl_setopt($curl, CURLOPT_TIMEOUT, 1);
+		curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
         $return = curl_exec($curl);

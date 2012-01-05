@@ -42,6 +42,10 @@ class NodrewEmbedlyExtension extends Extension
     {
         $container->setParameter('nodrew_embedly.key', $config['key']);
         
+        if (isset($config['timeout'])) {
+            $container->setParameter('nodrew_embedly.timeout', $config['timeout']);
+        }
+        
         if (isset($config['options'])) {
             $container->setParameter('nodrew_embedly.options', $config['options']);
         }

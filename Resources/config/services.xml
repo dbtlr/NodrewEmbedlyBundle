@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="nodrew_embedly.key"></parameter>
+        <parameter key="nodrew_embedly.timeout"></parameter>
         <parameter key="nodrew_embedly.options"></parameter>
         <parameter key="nodrew_embedly.oembed.client.class">Nodrew\Bundle\EmbedlyBundle\Service\OEmbedClient</parameter>
     </parameters>
@@ -13,6 +14,7 @@
     <services>
         <service id="nodrew_embedly.oembed.client" class="%nodrew_embedly.oembed.client.class%">
             <argument>%nodrew_embedly.key%</argument>
+            <argument>%nodrew_embedly.timeout%</argument>
              <argument>%nodrew_embedly.options%</argument>
         </service>
     </services>
