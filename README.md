@@ -56,7 +56,7 @@ Using Embedly
 To use Embedly to get the information about a single url, pass fetch() a url like:
 
 ```php
-$client   = $this->get('nodrew_embedly.oembed.client');
+$client   = $container->get('nodrew_embedly.oembed.client');
 $response = $client->fetch('http://example.com/path');
 
 $response; // Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface object
@@ -65,7 +65,7 @@ $response; // Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface objec
 To use Embedly to return information about multiple urls, pass fetch() an array of urls like:
 
 ```php
-$client   = $this->get('nodrew_embedly.oembed.client');
+$client   = $container->get('nodrew_embedly.oembed.client');
 $response = $client->fetch(array('http://example.com/path','http://example.com/another/path'));
 
 $response; // Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface object
