@@ -9,10 +9,22 @@
         <parameter key="nodrew_embedly.timeout"></parameter>
         <parameter key="nodrew_embedly.options"></parameter>
         <parameter key="nodrew_embedly.oembed.client.class">Nodrew\Bundle\EmbedlyBundle\Service\OEmbedClient</parameter>
+        <parameter key="nodrew_embedly.preview.client.class">Nodrew\Bundle\EmbedlyBundle\Service\PreviewClient</parameter>
+        <parameter key="nodrew_embedly.objectify.client.class">Nodrew\Bundle\EmbedlyBundle\Service\ObjectifyClient</parameter>
     </parameters>
 
     <services>
         <service id="nodrew_embedly.oembed.client" class="%nodrew_embedly.oembed.client.class%">
+            <argument>%nodrew_embedly.key%</argument>
+            <argument>%nodrew_embedly.timeout%</argument>
+             <argument>%nodrew_embedly.options%</argument>
+        </service>
+        <service id="nodrew_embedly.preview.client" class="%nodrew_embedly.preview.client.class%">
+            <argument>%nodrew_embedly.key%</argument>
+            <argument>%nodrew_embedly.timeout%</argument>
+             <argument>%nodrew_embedly.options%</argument>
+        </service>
+        <service id="nodrew_embedly.objectify.client" class="%nodrew_embedly.objectify.client.class%">
             <argument>%nodrew_embedly.key%</argument>
             <argument>%nodrew_embedly.timeout%</argument>
              <argument>%nodrew_embedly.options%</argument>

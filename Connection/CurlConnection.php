@@ -32,6 +32,7 @@ class CurlConnection
 	{
 		$curl = curl_init();
 
+        echo $path;
 		curl_setopt($curl, CURLOPT_URL, $path);
 		curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
