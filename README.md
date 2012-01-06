@@ -91,20 +91,32 @@ nodrew_embedly:
     key:   [your api key]
 ```
 
-## Using Embedly's oEmbed Service
+## Usage
 
-To use Embedly to get the information about a single url, pass fetch() a url like:
+There are 3 client's that can be used. Each corrisponds to the Embedly endpoing of the same name:
 
-```php
+- oEmbed:    nodrew_embedly.oembed.client
+- Preview:   nodrew_embedly.preview.client
+- Objectify: nodrew_embedly.objectify.client
+
+The interface and usage for each of these is the same, so we'll be using the oEmbed interface for the usage examples.
+
+### Fetch on a single url
+
+``` php
+<?php
+
 $client   = $container->get('nodrew_embedly.oembed.client');
 $response = $client->fetch('http://example.com/path');
 
 $response; // Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface object
 ```
 
-To use Embedly to return information about multiple urls, pass fetch() an array of urls like:
+### Fetch for multiple urls
 
-```php
+``` php
+<?php
+
 $client   = $container->get('nodrew_embedly.oembed.client');
 $response = $client->fetch(array('http://example.com/path','http://example.com/another/path'));
 
@@ -116,13 +128,25 @@ $response; // Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface objec
 
 A subclass of the [Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/ResponseInterface.php) is always expected. If one is not returned, then there was likely a problem contacting Embedly or a timeout occurred.
 
+If the [ErrorResponse](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/ErrorResponse.php) object is returned, then it will contain an error message and error code describing as best as possible what happened. Usually this happens when a 404 is returned by the target url and Embedly is unable to fetch information about it. It may also contain a 500 type error if there is an issue with the target path's server.
+
+### oEmbed Responses
+
 - [Nodrew\Bundle\EmbedlyBundle\Model\Response\LinkResponse](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/LinkResponse.php)
 - [Nodrew\Bundle\EmbedlyBundle\Model\Response\PhotoResponse](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/PhotoResponse.php)
 - [Nodrew\Bundle\EmbedlyBundle\Model\Response\VideoResponse](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/VideoResponse.php)
 - [Nodrew\Bundle\EmbedlyBundle\Model\Response\RichResponse](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/RichResponse.php)
 - [Nodrew\Bundle\EmbedlyBundle\Model\Response\ErrorResponse](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/ErrorResponse.php)
 
-If the [ErrorResponse](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/ErrorResponse.php) object is returned, then it will contain an error message and error code describing as best as possible what happened. Usually this happens when a 404 is returned by the target url and Embedly is unable to fetch information about it. It may also contain a 500 type error if there is an issue with the target path's server.
+### Preview Responses
+
+- [Nodrew\Bundle\EmbedlyBundle\Model\Response\PreviewResponse](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/PreviewResponse.php)
+- [Nodrew\Bundle\EmbedlyBundle\Model\Response\ErrorResponse](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/ErrorResponse.php)
+
+### Objectify Responses
+
+- [Nodrew\Bundle\EmbedlyBundle\Model\Response\ObjectifyResponse](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/ObjectifyResponse.php)
+- [Nodrew\Bundle\EmbedlyBundle\Model\Response\ErrorResponse](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/ErrorResponse.php)
 
 
 ## Optional Configuration
@@ -131,9 +155,8 @@ These options may be added to the configuration. The timeout is how long you wil
 
 For the rest of the options, see the [Embedly query argument documentation](http://embed.ly/docs/endpoints/arguments) for a full reference of what they do. Note: there are a couple options that were removed, simply because they did not make sense in the context of this bundle. If you feel like one of those is needed, then please let me know through the bug reports and I'll see what I can do to incorporate it.
 
-*app/config/config.yml*
-
-```
+``` yaml
+// app/config/config.yml
 nodrew_embedly:
     timeout:   3
     options:
