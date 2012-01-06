@@ -2,6 +2,8 @@
 
 namespace Nodrew\Bundle\EmbedlyBundle\Service;
 
+use Nodrew\Bundle\EmbedlyBundle\Factory\PreviewFactory;
+
 /**
  * @package     NodrewEmbedlyBundle
  * @author      Drew Butler <drew@abstracting.me>
@@ -11,4 +13,12 @@ namespace Nodrew\Bundle\EmbedlyBundle\Service;
 class PreviewClient extends Client
 {
     const CLIENT_URI = 'http://api.embed.ly/1/preview?%s';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getResponseFactory()
+    {
+        return new PreviewFactory;
+    }
 }

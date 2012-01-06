@@ -11,7 +11,7 @@ use Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface,
  * @copyright	(c) 2012 Drew Butler
  * @license     http://www.opensource.org/licenses/mit-license.php
  */
-class ResponseFactory
+class OEmbedFactory implements ResponseFactoryInterface
 {
     protected $validTypes = array('link', 'photo', 'video', 'rich', 'error');
 

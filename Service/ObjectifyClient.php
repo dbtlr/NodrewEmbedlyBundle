@@ -2,6 +2,8 @@
 
 namespace Nodrew\Bundle\EmbedlyBundle\Service;
 
+use Nodrew\Bundle\EmbedlyBundle\Factory\ObjectifyFactory;
+
 /**
  * @package     NodrewEmbedlyBundle
  * @author      Drew Butler <drew@abstracting.me>
@@ -11,4 +13,12 @@ namespace Nodrew\Bundle\EmbedlyBundle\Service;
 class ObjectifyClient extends Client
 {
     const CLIENT_URI = 'http://api.embed.ly/2/objectify?%s';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getResponseFactory()
+    {
+        return new ObjectifyFactory;
+    }
 }

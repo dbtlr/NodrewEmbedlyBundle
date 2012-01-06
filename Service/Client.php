@@ -3,7 +3,6 @@
 namespace Nodrew\Bundle\EmbedlyBundle\Service;
 
 use Nodrew\Bundle\EmbedlyBundle\Model\QueryArguments,
-    Nodrew\Bundle\EmbedlyBundle\Factory\ResponseFactory,
     Nodrew\Bundle\EmbedlyBundle\Connection\CurlResponse,
     Nodrew\Bundle\EmbedlyBundle\Connection\CurlConnection,
     Symfony\Component\HttpFoundation\Response;
@@ -85,7 +84,7 @@ abstract class Client
 	        return;
         }
 
-	    $factory = new ResponseFactory;
+	    $factory = $this->getResponseFactory();
 
 	    if (!$this->hasMultipleResponses($decoded)) {
 	        return $factory->buildResponse($decoded);
@@ -141,4 +140,11 @@ abstract class Client
     {
         return array_keys($response) === range(0, count($response) - 1);
     }
+    
+    /**
+     * Get the Response factory object.
+     *
+     * @return \Nodrew\Bundle\EmbedlyBundle\Factory\ResponseFactoryInterface
+     */
+    abstract protected function getResponseFactory();
 }

@@ -4,7 +4,9 @@ namespace Nodrew\Bundle\EmbedlyBundle\Tests\Service;
 
 use Nodrew\Bundle\EmbedlyBundle\Service\Client,
     Nodrew\Bundle\EmbedlyBundle\Connection\CurlResponse,
-    Nodrew\Bundle\EmbedlyBundle\Connection\CurlConnection;
+    Nodrew\Bundle\EmbedlyBundle\Connection\CurlConnection,
+    Nodrew\Bundle\EmbedlyBundle\Model\Response\MappedResponseAbstract,
+    Nodrew\Bundle\EmbedlyBundle\Factory\ResponseFactoryInterface;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,8 +17,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('LogicException');
         $client = new BadMockClient('keynum', 4, array('wmode' => 'window'));
-    }    
-    
+    }
+
     /**
      * @covers Nodrew\Bundle\EmbedlyBundle\Service\Client::fetch
      */
@@ -27,7 +29,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $result = $client->fetch('http://www.example.com');
 
-        $this->assertEquals('Nodrew\\Bundle\\EmbedlyBundle\\Model\\Response\\LinkResponse', get_class($result));
+        $this->assertEquals('link', $result->getType());
     }
 
     /**
@@ -42,10 +44,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(is_array($result));
         $this->assertEquals(2, count($result));
-        $this->assertEquals('Nodrew\\Bundle\\EmbedlyBundle\\Model\\Response\\LinkResponse', get_class($result[0]));
-        $this->assertEquals('Nodrew\\Bundle\\EmbedlyBundle\\Model\\Response\\VideoResponse', get_class($result[1]));
+        $this->assertEquals('link', $result[0]->getType());
+        $this->assertEquals('video', $result[1]->getType());
     }
-    
+
 
     /**
      * @covers Nodrew\Bundle\EmbedlyBundle\Service\Client::fetch
@@ -57,9 +59,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $result = $client->fetch('http://www.example.com');
 
-        $this->assertEquals('Nodrew\\Bundle\\EmbedlyBundle\\Model\\Response\\ErrorResponse', get_class($result));
-        $this->assertEquals(404, $result->getCode());
-        $this->assertEquals('Not Found', $result->getMessage());
+        $this->assertEquals('error', $result->getType());
+
+        $props = $result->getUnknownProperties();
+
+        $this->assertEquals(404, $props['error_code']);
+        $this->assertEquals('Not Found', $props['error_message']);
     }
 
     /**
@@ -114,6 +119,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 class MockClient extends Client
 {
     const CLIENT_URI = 'http://www.example.com/blah?%s';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getResponseFactory()
+    {
+        return new MockFactory;
+    }
 }
 
 /**
@@ -122,6 +135,44 @@ class MockClient extends Client
 class BadMockClient extends Client
 {
 
+    /**
+     * {@inheritdoc}
+     */
+    protected function getResponseFactory()
+    {
+        return new MockFactory;
+    }
+}
+
+class MockFactory implements ResponseFactoryInterface
+{
+    public function buildResponse($embedlyResponse)
+    {
+        $response = new ResponseMock();
+        $response->map($embedlyResponse);
+
+        return $response;
+    }
+}
+
+
+
+/**
+ * Mock class for Nodrew\Bundle\EmbedlyBundle\Model\Response\MappedResponseAbstract
+ */
+class ResponseMock extends MappedResponseAbstract
+{
+    public $fieldMappings = array();
+
+    public function getType()
+    {
+        return isset($this->unknownProperties['type']) ? $this->unknownProperties['type'] : 'mock';
+    }
+
+    protected function getFieldMappings()
+    {
+        return $this->fieldMappings;
+    }
 }
 
 /**
