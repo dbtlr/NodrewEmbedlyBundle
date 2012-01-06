@@ -15,9 +15,22 @@ __Note: The Preview and Objectify endpoints require a paid account in order to u
 
 ## Installation Instructions
 
-Add these blocks to the following files
+1. Download NodrewEmbedlyBundle
+2. Configure the Autoloader
+3. Enable the Bundle
+4. Add your Embedly provider key
 
-*deps*
+### Step 1: Download NodrewEmbedlyBundle
+
+Ultimately, the NodrewEmbedlyBundle files should be downloaded to the
+`vendor/bundles/Nodrew/Bundle/EmbedlyBundle` directory.
+
+This can be done in several ways, depending on your preference. The first
+method is the standard Symfony2 method.
+
+**Using the vendors script**
+
+Add the following lines in your `deps` file:
 
 ```
 [NodrewEmbedlyBundle]
@@ -25,34 +38,55 @@ Add these blocks to the following files
     target=/bundles/Nodrew/Bundle/EmbedlyBundle
 ```
 
-*app/autoload.php*
+Now, run the vendors script to download the bundle:
 
+``` bash
+$ php bin/vendors install
 ```
+
+**Using submodules**
+
+If you prefer instead to use git submodules, then run the following:
+
+``` bash
+$ git submodule add http://github.com/nodrew/NodrewEmbedlyBundle.git vendor/bundles/Nodrew/Bundle/EmbedlyBundle
+$ git submodule update --init
+```
+
+### Step 2: Configure the Autoloader
+
+``` php
+<?php
+// app/autoload.php
+
 $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
-    ...
+    // ...
     'Nodrew'   => __DIR__.'/../vendor/bundles',
-    ...
 ));
 ```
 
-*app/AppKernel.php*
+### Step 3: Enable the bundle
 
-```
+Finally, enable the bundle in the kernel:
+
+``` php
+<?php
+// app/AppKernel.php
+
 public function registerBundles()
 {
     $bundles = array(
-        // System Bundles
-        ...
+        // ...
         new Nodrew\Bundle\EmbedlyBundle\NodrewEmbedlyBundle(),
-        ...
     );
 }
 ```
 
-*app/config/config.yml*
+### Step 4: Add your Embedly provider key
 
-```
+``` yaml
+# app/config/config.yml
 nodrew_embedly:
     key:   [your api key]
 ```
