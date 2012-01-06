@@ -1,18 +1,19 @@
-Embedly Bundle for Symfony2 [![Travis-CI Build Status](https://secure.travis-ci.org/nodrew/NodrewEmbedlyBundle.png?branch=master)](http://travis-ci.org/#!/nodrew/NodrewEmbedlyBundle)
-================================
+Embedly Bundle for Symfony2 
+===========================
+
+[![Travis-CI Build Status](https://secure.travis-ci.org/nodrew/NodrewEmbedlyBundle.png?branch=master)](http://travis-ci.org/#!/nodrew/NodrewEmbedlyBundle)
 
 For use with the Embedly service at: http://www.embedly.com
 
 APIs Supported:
 
 - [oEmbed](http://embed.ly/docs/endpoints/1/oembed): Complete
-- [Preview](http://embed.ly/docs/endpoints/1/preview): In Development
-- [Objectify](http://embed.ly/docs/endpoints/2/objectify): In Development
+- [Preview](http://embed.ly/docs/endpoints/1/preview): Almost Complete - Model Response Structure May Change.
+- [Objectify](http://embed.ly/docs/endpoints/2/objectify): Almost Complete - Model Response Structure May Change.
 
-__Under Development__
+__Note: The Preview and Objectify endpoints require a paid account in order to use. An error will be returned and will result in a LogicException being thrown if you try to fetch from one of these services with the free account.__
 
-Installation Instructions
-=========================
+## Installation Instructions
 
 Add these blocks to the following files
 
@@ -56,8 +57,7 @@ nodrew_embedly:
     key:   [your api key]
 ```
 
-Using Embedly's oEmbed Service
-=============
+## Using Embedly's oEmbed Service
 
 To use Embedly to get the information about a single url, pass fetch() a url like:
 
@@ -78,8 +78,7 @@ $response; // Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface objec
 ```
 
 
-Possible Response Objects
-=========================
+## Possible Response Objects
 
 A subclass of the [Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/ResponseInterface.php) is always expected. If one is not returned, then there was likely a problem contacting Embedly or a timeout occurred.
 
@@ -91,8 +90,8 @@ A subclass of the [Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface]
 
 If the [ErrorResponse](https://github.com/nodrew/NodrewEmbedlyBundle/blob/master/Model/Response/ErrorResponse.php) object is returned, then it will contain an error message and error code describing as best as possible what happened. Usually this happens when a 404 is returned by the target url and Embedly is unable to fetch information about it. It may also contain a 500 type error if there is an issue with the target path's server.
 
-Optional Configuration
-======================
+
+## Optional Configuration
 
 These options may be added to the configuration. The timeout is how long you will wait for Embedly to return. If you plan to use the multiple URL feature, I suggest upping this number, as Embedly is very fast on single URLs, especially highly trafficked ones. However, the more obscure the URL, and the more you provide, the longer they will take to process.
 
@@ -114,3 +113,9 @@ nodrew_embedly:
         words:      50
         chars:      ~
 ```
+
+
+## TODO
+
+- More tests
+- Add objects and parsing for the Preview and Objectify factories, to process Events, Places and Images into.
