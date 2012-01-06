@@ -117,10 +117,10 @@ $response; // Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface objec
 ``` php
 <?php
 
-$client   = $container->get('nodrew_embedly.oembed.client');
-$response = $client->fetch(array('http://example.com/path','http://example.com/another/path'));
+$client    = $container->get('nodrew_embedly.oembed.client');
+$responses = $client->fetch(array('http://example.com/path','http://example.com/another/path'));
 
-$response; // Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface object
+$responses; // array of Nodrew\Bundle\EmbedlyBundle\Model\Response\ResponseInterface objects
 ```
 
 
