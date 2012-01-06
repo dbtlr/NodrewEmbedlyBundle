@@ -2,8 +2,6 @@
 
 namespace Nodrew\Bundle\EmbedlyBundle\Connection;
 
-use Symfony\Component\HttpFoundation\Response;
-
 /**
  * @package     NodrewEmbedlyBundle
  * @author      Drew Butler <drew@abstracting.me>
