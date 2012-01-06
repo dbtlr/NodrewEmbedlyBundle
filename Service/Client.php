@@ -4,6 +4,7 @@ namespace Nodrew\Bundle\EmbedlyBundle\Service;
 
 use Nodrew\Bundle\EmbedlyBundle\Model\QueryArguments,
     Nodrew\Bundle\EmbedlyBundle\Factory\ResponseFactory,
+    Nodrew\Bundle\EmbedlyBundle\Connection\CurlResponse,
     Nodrew\Bundle\EmbedlyBundle\Connection\CurlConnection,
     Symfony\Component\HttpFoundation\Response;
 
@@ -73,12 +74,14 @@ abstract class Client
 	/**
 	 * Parse the given response JSON.
 	 *
-	 * @param string $textResponse
+	 * @param CurlResponse $response
 	 * @return array|null
 	 */
-	protected function parseResponse($textResponse)
+	protected function parseResponse(CurlResponse $response)
 	{
-	    if (!$decoded = json_decode($textResponse, true)) {
+	    $this->checkResponse($response);
+
+	    if (!$decoded = json_decode($response->getReturn(), true)) {
 	        return;
         }
 
@@ -94,6 +97,38 @@ abstract class Client
         }
 
         return $responses;
+    }
+
+    /**
+     * Check that the response is a valid one.
+     *
+     * @param CurlResponse $response
+     */
+    public function checkResponse(CurlResponse $response)
+    {
+        if ($response->get('http_code') && $response->get('http_code') != 200) {
+            if (strpos('403: Forbidden - The provided key does not support this endpoint:', $response->getReturn()) === 0) {
+                throw new \LogicException('The Embedly god does not smile upon you this day. It looks like your provider key does not have permission to access this endpoint. You may need to either upgrade to a paid account, or contact support: support@embed.ly.');
+            }
+
+            $response->setReturn($this->buildErrorReturn($response->get('http_code'), $response->getReturn()));
+        }
+    }
+
+	/**
+	 * Given the current response code, create and error response json type.
+	 *
+	 * @param int $code
+	 * @return string
+	 */
+	protected function buildErrorReturn($code, $origReturn)
+	{
+	    return json_encode(array(
+	        'type'            => 'error',
+	        'error_code'      => $code,
+	        'error_message'   => isset(Response::$statusTexts[$code]) ? Response::$statusTexts[$code] : 'Unknown response code',
+	        'original_return' => $origReturn,
+	    ));
     }
 
     /**

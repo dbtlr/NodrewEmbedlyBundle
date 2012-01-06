@@ -16,6 +16,7 @@ class ErrorResponse extends MappedResponseAbstract
     protected $type;
     protected $code;
     protected $message;
+    protected $originalReturn;
     /**@#-*/
 
 
@@ -48,14 +49,25 @@ class ErrorResponse extends MappedResponseAbstract
     }
 
     /**
+     * Get the originalReturn property.
+     *
+     * @return string
+     */
+    public function getOriginalReturn()
+    {
+        return $this->originalReturn;
+    }
+
+    /**
      * {@inheritDoc}
      */
     protected function getFieldMappings()
     {
         return array(
-            'type'          => 'type',
-            'error_code'    => 'code',
-            'error_message' => 'message',
+            'type'            => 'type',
+            'error_code'      => 'code',
+            'error_message'   => 'message',
+            'original_return' => 'originalReturn',
         );
     }
 }

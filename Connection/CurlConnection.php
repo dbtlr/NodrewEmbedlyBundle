@@ -38,29 +38,12 @@ class CurlConnection
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
         $return = curl_exec($curl);
-        $code   = curl_getinfo($curl, CURLINFO_HTTP_CODE);
- 
+        $info   = curl_getinfo($curl);
+        
 		curl_close($curl);
         
-        if ($code != 200) {
-            $return = $this->buildErrorReturn($code);
-        }
+        $response = new CurlResponse($return, $info);
 
-		return $return;
+		return $response;
 	}
-	
-	/**
-	 * Given the current response code, create and error response json type.
-	 *
-	 * @param int $code
-	 * @return stringr
-	 */
-	protected function buildErrorReturn($code)
-	{
-	    return json_encode(array(
-	        'type'          => 'error',
-	        'error_code'    => $code,
-	        'error_message' => isset(Response::$statusTexts[$code]) ? Response::$statusTexts[$code] : 'Unknown response code',
-	    ));
-    }
 }

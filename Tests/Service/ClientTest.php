@@ -3,6 +3,7 @@
 namespace Nodrew\Bundle\EmbedlyBundle\Tests\Service;
 
 use Nodrew\Bundle\EmbedlyBundle\Service\Client,
+    Nodrew\Bundle\EmbedlyBundle\Connection\CurlResponse,
     Nodrew\Bundle\EmbedlyBundle\Connection\CurlConnection;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
@@ -52,7 +53,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testWillReturnErrorObjectIfErrorCodeReturned()
     {
         $client = new MockClient('keynum', 4, array('wmode' => 'window'));
-        $client->setCurlConnection($this->getMockConn(404));
+        $client->setCurlConnection($this->getMockConn('WTF ERROR!!', array('http_code' => 404)));
 
         $result = $client->fetch('http://www.example.com');
 
@@ -94,14 +95,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      *
      * @param array $returnData
      */
-    protected function getMockConn($returnData)
+    protected function getMockConn($returnData, $info = array())
     {
         if (is_array($returnData)) {
             $returnData = json_encode($returnData);
         }
 
         $conn = new MockCurlConnection;
-        $conn->return = $returnData;
+        $conn->return = new CurlResponse($returnData, $info);
 
         return $conn;
     }
@@ -128,17 +129,11 @@ class BadMockClient extends Client
  */
 class MockCurlConnection extends CurlConnection
 {
-    public $return = '';
+    public $return;
     public $path;
     public function request($path)
     {
         $this->path = $path;
-
-        // To mock out what happens when a particular status code is returned.
-        if (is_int($this->return)) {
-            return $this->buildErrorReturn($this->return);
-        }
-
         return $this->return;
     }
 }
