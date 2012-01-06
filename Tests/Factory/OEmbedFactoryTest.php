@@ -69,7 +69,7 @@ class OEmbedFactoryTest extends \PHPUnit_Framework_TestCase
          $factory = new OEmbedFactory;
          $model = $factory->buildResponse(array('type' => 'unknown'));
 
-         $this->assertEquals('Nodrew\\Bundle\\EmbedlyBundle\\Model\\Response\\GenericResponse', get_class($model));
+         $this->assertEquals('Nodrew\\Bundle\\EmbedlyBundle\\Model\\Response\\OEmbedResponse', get_class($model));
          $this->assertEquals('unknown', $model->getType());
      }
 }

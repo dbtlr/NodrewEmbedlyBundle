@@ -25,7 +25,7 @@ class OEmbedFactory implements ResponseFactoryInterface
     {
         $type = $embedlyResponse['type'];
         if (!in_array($type, $this->validTypes)) {
-            $type = 'generic';
+            $type = 'oEmbed';
         }
 
         $class   = 'Nodrew\\Bundle\\EmbedlyBundle\\Model\\Response\\'.ucfirst($type).'Response';
