@@ -2,17 +2,26 @@
 
 namespace Nodrew\Bundle\EmbedlyBundle\Tests\Service;
 
-use Nodrew\Bundle\EmbedlyBundle\Service\OEmbedClient,
+use Nodrew\Bundle\EmbedlyBundle\Service\Client,
     Nodrew\Bundle\EmbedlyBundle\Connection\CurlConnection;
 
-class OEmbedClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Nodrew\Bundle\EmbedlyBundle\Service\OEmbedClient::fetch
+     * @covers Nodrew\Bundle\EmbedlyBundle\Service\Client::__construct
+     */
+    public function testConstructWillExplodeIfChildClientDoesNotHaveAUriDefined()
+    {
+        $this->setExpectedException('LogicException');
+        $client = new BadMockClient('keynum', 4, array('wmode' => 'window'));
+    }    
+    
+    /**
+     * @covers Nodrew\Bundle\EmbedlyBundle\Service\Client::fetch
      */
     public function testWillBuildObjectsThroughTheFactoryBasedOnTypeGiven()
     {
-        $client = new OEmbedClient('keynum', 4, array('wmode' => 'window'));
+        $client = new MockClient('keynum', 4, array('wmode' => 'window'));
         $client->setCurlConnection($this->getMockConn(array('type' => 'link')));
 
         $result = $client->fetch('http://www.example.com');
@@ -21,11 +30,11 @@ class OEmbedClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Nodrew\Bundle\EmbedlyBundle\Service\OEmbedClient::fetch
+     * @covers Nodrew\Bundle\EmbedlyBundle\Service\Client::fetch
      */
     public function testWillBuildMultipleObjectsThroughTheFactoryWhenReturnedMultipleResults()
     {
-        $client = new OEmbedClient('keynum', 4, array('wmode' => 'window'));
+        $client = new MockClient('keynum', 4, array('wmode' => 'window'));
         $client->setCurlConnection($this->getMockConn(array(array('type' => 'link'), array('type' => 'video'))));
 
         $result = $client->fetch('http://www.example.com');
@@ -38,11 +47,11 @@ class OEmbedClientTest extends \PHPUnit_Framework_TestCase
     
 
     /**
-     * @covers Nodrew\Bundle\EmbedlyBundle\Service\OEmbedClient::fetch
+     * @covers Nodrew\Bundle\EmbedlyBundle\Service\Client::fetch
      */
     public function testWillReturnErrorObjectIfErrorCodeReturned()
     {
-        $client = new OEmbedClient('keynum', 4, array('wmode' => 'window'));
+        $client = new MockClient('keynum', 4, array('wmode' => 'window'));
         $client->setCurlConnection($this->getMockConn(404));
 
         $result = $client->fetch('http://www.example.com');
@@ -53,31 +62,31 @@ class OEmbedClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Nodrew\Bundle\EmbedlyBundle\Service\OEmbedClient::fetch
+     * @covers Nodrew\Bundle\EmbedlyBundle\Service\Client::fetch
      */
     public function testWillSetSingleUrlProperly()
     {
-        $client = new OEmbedClient('keynum', 4, array('wmode' => 'window'));
+        $client = new MockClient('keynum', 4, array('wmode' => 'window'));
         $conn   = $this->getMockConn(array('type' => 'link'));
         $client->setCurlConnection($conn);
 
         $result = $client->fetch('http://www.example.com');
 
-        $this->assertEquals('http://api.embed.ly/1/oembed?key=keynum&url=http%3A%2F%2Fwww.example.com&format=json&wmode=window&nostyle=0&autoplay=0&videosrc=0&words=50', $conn->path);
+        $this->assertEquals('http://www.example.com/blah?key=keynum&url=http%3A%2F%2Fwww.example.com&format=json&wmode=window&nostyle=0&autoplay=0&videosrc=0&words=50', $conn->path);
     }
 
     /**
-     * @covers Nodrew\Bundle\EmbedlyBundle\Service\OEmbedClient::fetch
+     * @covers Nodrew\Bundle\EmbedlyBundle\Service\Client::fetch
      */
     public function testWillSetMultipleUrlsProperly()
     {
-        $client = new OEmbedClient('keynum', 4, array('wmode' => 'window'));
+        $client = new MockClient('keynum', 4, array('wmode' => 'window'));
         $conn   = $this->getMockConn(array('type' => 'link'));
         $client->setCurlConnection($conn);
 
         $result = $client->fetch(array('http://www.example.com', 'http://www.example1.com'));
 
-        $this->assertEquals('http://api.embed.ly/1/oembed?key=keynum&urls=http%3A%2F%2Fwww.example.com,http%3A%2F%2Fwww.example1.com&format=json&wmode=window&nostyle=0&autoplay=0&videosrc=0&words=50', $conn->path);
+        $this->assertEquals('http://www.example.com/blah?key=keynum&urls=http%3A%2F%2Fwww.example.com,http%3A%2F%2Fwww.example1.com&format=json&wmode=window&nostyle=0&autoplay=0&videosrc=0&words=50', $conn->path);
     }
 
     /**
@@ -96,6 +105,22 @@ class OEmbedClientTest extends \PHPUnit_Framework_TestCase
 
         return $conn;
     }
+}
+
+/**
+ * A mock client WITH the CLIENT_URL defined as required.
+ */
+class MockClient extends Client
+{
+    const CLIENT_URI = 'http://www.example.com/blah?%s';
+}
+
+/**
+ * A mock client WITHOUT the CLIENT_URL defined as required.
+ */
+class BadMockClient extends Client
+{
+
 }
 
 /**
