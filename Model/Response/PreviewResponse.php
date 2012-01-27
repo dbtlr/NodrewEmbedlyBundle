@@ -158,7 +158,17 @@ class PreviewResponse extends MappedResponseAbstract
     /**
      * Get the images parameter
      *
-     * @return string
+     * @param array $images
+     */
+    public function setImages(array $images)
+    {
+        $this->images = $images;
+    }
+
+    /**
+     * Get the images parameter
+     *
+     * @return array
      */
     public function getImages()
     {
