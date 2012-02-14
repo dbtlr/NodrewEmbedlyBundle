@@ -7,7 +7,7 @@ use Nodrew\Bundle\EmbedlyBundle\Model\Response\PreviewResponse,
 
 /**
  * @package     NodrewEmbedlyBundle
- * @author      Drew Butler <drew@abstracting.me>
+ * @author      Drew Butler <hi@nodrew.com>
  * @copyright	(c) 2012 Drew Butler
  * @license     http://www.opensource.org/licenses/mit-license.php
  */
