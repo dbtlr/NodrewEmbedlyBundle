@@ -2,7 +2,8 @@
 
 namespace Nodrew\Bundle\EmbedlyBundle\Factory;
 
-use Nodrew\Bundle\EmbedlyBundle\Model\Response\PreviewResponse;
+use Nodrew\Bundle\EmbedlyBundle\Model\Response\PreviewResponse,
+    Nodrew\Bundle\EmbedlyBundle\Model\Response\ErrorResponse;
 
 /**
  * @package     NodrewEmbedlyBundle
@@ -18,7 +19,7 @@ class PreviewFactory implements ResponseFactoryInterface
      */
     public function buildResponse($embedlyResponse)
     {
-        $response = new PreviewResponse;
+        $response = $embedlyResponse['type'] != 'error' ? new PreviewResponse : new ErrorResponse;
         $response->map($embedlyResponse);
 
         return $response;

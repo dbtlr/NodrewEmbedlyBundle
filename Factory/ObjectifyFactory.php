@@ -2,7 +2,8 @@
 
 namespace Nodrew\Bundle\EmbedlyBundle\Factory;
 
-use Nodrew\Bundle\EmbedlyBundle\Model\Response\ObjectifyResponse;
+use Nodrew\Bundle\EmbedlyBundle\Model\Response\ObjectifyResponse,
+    Nodrew\Bundle\EmbedlyBundle\Model\Response\ErrorResponse;
 
 /**
  * @package     NodrewEmbedlyBundle
@@ -18,7 +19,7 @@ class ObjectifyFactory implements ResponseFactoryInterface
      */
     public function buildResponse($embedlyResponse)
     {
-        $response = new ObjectifyResponse;
+        $response = $embedlyResponse['type'] != 'error' ? new ObjectifyResponse : new ErrorResponse;
         $response->map($embedlyResponse);
 
         return $response;
