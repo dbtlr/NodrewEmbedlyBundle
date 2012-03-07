@@ -58,18 +58,20 @@ class QueryArguments
         $vars   = get_object_vars($this);
         $params = array();
 
+        $string = '';
         foreach ($vars as $key => $value) {
             if (is_null($value)) {
                 continue;
             }
 
-            $params[$key] = $value;
+            if ($key != 'urls') {
+                $value = urlencode($value);
+            }
+
+            $string .= $key.'='.$value.'&';
         }
-
-        $string = http_build_query($params);
-
-        // We want to preserve commas in the URL, as embedly requires them for multiple urls.
-        $string = str_replace('%2C', ',', (string) $string);
+        
+        $string = trim($string, '&');
 
         return $string;
     }
@@ -141,6 +143,10 @@ class QueryArguments
     {
         if (!is_array($urls)) {
             throw new ParameterMatchException('urls', 'array');
+        }
+
+        foreach ($urls as &$url) {
+            $url = urlencode($url);
         }
 
         $this->urls = implode(',', $urls);
