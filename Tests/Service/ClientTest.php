@@ -78,7 +78,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $result = $client->fetch('http://www.example.com');
 
-        $this->assertEquals('http://www.example.com/blah?key=keynum&url=http%3A%2F%2Fwww.example.com&format=json&wmode=window&nostyle=0&autoplay=0&videosrc=0&words=50', $conn->path);
+        $this->assertEquals('http://www.example.com/blah?key=keynum&url=http%3A%2F%2Fwww.example.com&format=json&wmode=window&nostyle=&autoplay=&videosrc=&words=50', $conn->path);
     }
 
     /**
@@ -92,7 +92,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $result = $client->fetch(array('http://www.example.com', 'http://www.example1.com'));
 
-        $this->assertEquals('http://www.example.com/blah?key=keynum&urls=http%3A%2F%2Fwww.example.com,http%3A%2F%2Fwww.example1.com&format=json&wmode=window&nostyle=0&autoplay=0&videosrc=0&words=50', $conn->path);
+        $this->assertEquals('http://www.example.com/blah?key=keynum&urls=http%3A%2F%2Fwww.example.com,http%3A%2F%2Fwww.example1.com&format=json&wmode=window&nostyle=&autoplay=&videosrc=&words=50', $conn->path);
     }
 
     /**

@@ -34,7 +34,7 @@ class QueryArgumentsTest extends \PHPUnit_Framework_TestCase
         $model = new QueryArguments;
         $model->setUrls(array('http://www.example.com', 'http://www.example2.com'));
 
-        $this->assertEquals('http://www.example.com,http://www.example2.com', $model->getUrls());
+        $this->assertEquals('http%3A%2F%2Fwww.example.com,http%3A%2F%2Fwww.example2.com', $model->getUrls());
     }
 
     /**
@@ -50,7 +50,7 @@ class QueryArgumentsTest extends \PHPUnit_Framework_TestCase
             'nostyle' => true,
         ));
 
-        $string = 'key=foo&url=http%3A%2F%2Fwww.example.com%2Fblah%3Fstuff&format=json&wmode=transparent&nostyle=1&autoplay=0&videosrc=0&words=50';
+        $string = 'key=foo&url=http%3A%2F%2Fwww.example.com%2Fblah%3Fstuff&format=json&wmode=transparent&nostyle=1&autoplay=&videosrc=&words=50';
         $this->assertEquals($string, $model->toQueryString());
     }
 
