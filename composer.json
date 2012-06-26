@@ -1,0 +1,13 @@
+{
+    "name": "nodrew/embedly-bundle",
+    "description": "Symfony2 Bundle for working with the Embedly service",
+    "type": "symfony-bundle",
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": ">=2.0,<2.2-dev"
+    },
+    "autoload": {
+        "psr-0": { "Nodrew\\Bundle\\EmbedlyBundle": "" }
+    },
+    "target-dir": "Nodrew/Bundle/EmbedlyBundle"
+}
