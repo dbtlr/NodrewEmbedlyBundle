@@ -55,7 +55,7 @@ class PhotoResponse extends OEmbedResponse
     protected function getFieldMappings()
     {
         return parent::getFieldMappings() + array(
-            'url'    => 'height',
+            'url'    => 'url',
             'height' => 'height',
             'width'  => 'width',
         );
